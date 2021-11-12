@@ -13,13 +13,6 @@ class ViewController: UIViewController {
     var rotatedView: UIView!
     var resizableView: ResizableView!
     
-    func adjust(point: CGPoint, to angle: CGFloat) -> CGPoint {
-        return CGPoint(
-            x: point.x * cos(angle) - point.y * sin(angle),
-            y: point.x * sin(angle) + point.y * cos(angle)
-        )
-    }
-    
     enum AnchorPoint {
         
         case topLeft
@@ -114,19 +107,8 @@ class ViewController: UIViewController {
         
         let originalRect = CGRect(origin: origin, size: size)
         let scaledRect = CGRect(origin: CGPoint(x: origin.x + offset.x, y: origin.y + offset.y), size: newSize)
-        
-        
-                
-        //let r1 = CGRect(origin: origin, size: size).applying(transform.translatedBy(x: originalRect.midX, y: originalRect.midY).rotated(by: angle).translatedBy(x: -originalRect.midX, y: -originalRect.midY))
-        
-        //let adjustedMidpoint1 = adjust(point: CGPoint(x: size.width / 2.0, y: size.height / 2.0), to: angle)
-        //let tl1 = CGPoint(x: r1.midX - adjustedMidpoint1.x, y: r1.midY - adjustedMidpoint1.y)
+
         let v1 = anchorPoint.vertex(of: originalRect, for: angle)
-        
-        //let r2 = CGRect(origin: origin, size: newSize).applying(transform.translatedBy(x: scaledRect.midX, y: scaledRect.midY).rotated(by: angle).translatedBy(x: -scaledRect.midX, y: -scaledRect.midY))
-        
-        //let adjustedMidpoint2 = adjust(point: CGPoint(x: newSize.width / 2.0, y: newSize.height / 2.0), to: angle)
-        //let tl2 = CGPoint(x: r2.midX - adjustedMidpoint2.x, y: r2.midY - adjustedMidpoint2.y)
         let v2 = anchorPoint.vertex(of: scaledRect, for: angle)
         
         let dx = v2.x - v1.x
@@ -144,22 +126,7 @@ class ViewController: UIViewController {
         
         self.view.addSubview(self.rotatedView)
         
-        //self.originalView = UIView(frame: r1)
-        //self.originalView.translatesAutoresizingMaskIntoConstraints = false
-        //self.originalView.layer.borderWidth = 1
-        //self.originalView.layer.borderColor = UIColor.red.cgColor
-
-        //self.view.addSubview(self.originalView)
-        //
-        //let b2 = UIView(frame: r2)
-        //b2.translatesAutoresizingMaskIntoConstraints = false
-        //b2.layer.borderWidth = 1
-        //b2.layer.borderColor = UIColor.red.cgColor
-
-        //self.view.addSubview(b2)
-        
     }
-
-
+    
 }
 
